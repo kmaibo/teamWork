@@ -17,15 +17,13 @@ import java.time.LocalDateTime;
 @Transactional
 public class AccountService {
 
-    private final CurrencyValidatorForMonetaryAmount currencyValidatorForMonetaryAmount;
     private BankAccountRepository accountRepository;
     private UserRepository userRepository;
     private TransactionRepository transactionRepository;
-    public AccountService(BankAccountRepository accountRepository, UserRepository userRepository, TransactionRepository transactionRepository, CurrencyValidatorForMonetaryAmount currencyValidatorForMonetaryAmount) {
+    public AccountService(BankAccountRepository accountRepository, UserRepository userRepository, TransactionRepository transactionRepository) {
         this.accountRepository = accountRepository;
         this.userRepository = userRepository;
         this.transactionRepository = transactionRepository;
-        this.currencyValidatorForMonetaryAmount = currencyValidatorForMonetaryAmount;
     }
 
     public BankAccount createAccount(BankAccount bankAccount) {
