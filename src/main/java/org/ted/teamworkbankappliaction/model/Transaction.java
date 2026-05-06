@@ -15,15 +15,18 @@ public class Transaction {
     private long id;
 
     private BigDecimal amount;
+
+    @Enumerated(EnumType.STRING)  // Сохраняем enum как текст (DEPOSIT, WITHDRAW)
+    @Column(name = "type")
     private TransactionType type;
     private LocalDateTime timestamp;
 
     @ManyToOne
-    @JoinColumn(name = "from_acount_id")
+    @JoinColumn(name = "from_account_id")
     private BankAccount fromAccount;
 
     @ManyToOne
-    @JoinColumn(name = "to_acount_id")
+    @JoinColumn(name = "to_account_id")
     private BankAccount toAccount;
 
     public long getId() {
