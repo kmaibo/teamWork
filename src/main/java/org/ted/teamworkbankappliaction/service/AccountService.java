@@ -56,10 +56,25 @@ public class AccountService {
 
     }
 
-    public void transferMoney(BankAccount from, BankAccount to, BigDecimal amount) {
+    @Transactional
+    public void transferMoney(long from, long to, BigDecimal amount) {
+        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Сумма перевода должна быть положительной");
+        }
+
         Transaction transaction = new Transaction();
-        BankAccount fromAccount = accountRepository.findById(from.getId()).orElseThrow();
-        BankAccount toAccount = accountRepository.findById(to.getId()).orElseThrow();
+        BankAccount fromAccount = accountRepository.findById(from).orElseThrow();
+        BankAccount toAccount = accountRepository.findById(to).orElseThrow();
+
+        // Проверка, что счета разные
+        if (fromAccount.equals(toAccount)) {
+            throw new IllegalArgumentException("Нельзя перевести деньги на тот же счёт");
+        }
+
+        // Проверка достаточности средств
+        if (fromAccount.getBalance().compareTo(amount) < 0) {
+            throw new IllegalArgumentException("Недостаточно средств на счёте отправителя");
+        }
 
         fromAccount.setBalance(fromAccount.getBalance().subtract(amount));
         toAccount.setBalance(toAccount.getBalance().add(amount));

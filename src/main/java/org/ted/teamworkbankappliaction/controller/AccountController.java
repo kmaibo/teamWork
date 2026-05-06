@@ -45,8 +45,10 @@ public class AccountController {
         return accountService.withdraw(account, amount);
     }
 
-    @PatchMapping
-    public void transferMoney(@RequestBody BankAccount from,@RequestBody BankAccount to,@RequestBody BigDecimal amount) {
-        accountService.transferMoney(from,to,amount);
+    @PatchMapping("/transfer/")
+    public void transfer(@RequestParam("from") long fromAccountId,
+                         @RequestParam("to") long toAccountId,
+                         @RequestParam("amount") BigDecimal amount) {
+        accountService.transferMoney(fromAccountId, toAccountId, amount);
     }
 }
