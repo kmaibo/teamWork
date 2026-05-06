@@ -35,12 +35,12 @@ public class AccountController {
         accountRepository.deleteById(id);
     }
 
-    @PatchMapping
+    @PatchMapping("/deposit")
     public BankAccount deposit(@RequestBody BankAccount account, @RequestBody BigDecimal amount) {
         return accountService.deposit(account, amount);
     }
 
-    @PatchMapping
+    @PatchMapping("/withdraw")
     public BankAccount withdraw(@RequestBody BankAccount account, @RequestBody BigDecimal amount) {
         return accountService.withdraw(account, amount);
     }
