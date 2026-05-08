@@ -3,7 +3,7 @@ package org.ted.teamworkbankappliaction.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.ted.teamworkbankappliaction.dto.DynamicRuleDto;
-import org.ted.teamworkbankappliaction.dto.QueryConditionDto;
+import org.ted.teamworkbankappliaction.repository.UserKnowledgeRepository; // Проверьте импорт
 
 import java.util.UUID;
 
@@ -14,19 +14,21 @@ public class DynamicRuleEvaluator {
     private final UserKnowledgeRepository userKnowledgeRepository;
 
     public boolean evaluate(DynamicRuleDto rule, UUID userId) {
-        for (QueryConditionDto cond : rule.getRule()) {
-            boolean result = evaluateCondition(cond, userId);
-            if (Boolean.TRUE.equals(cond.getNegate())) {
+        if (rule.getRule() == null) return true;
+
+        for (DynamicRuleDto.QueryConditionDto cond : rule.getRule()) {
+            boolean result = evaluateCondition(userId, cond);
+            if (cond.isNegate()) {
                 result = !result;
             }
+
             if (!result) {
                 return false;
             }
         }
         return true;
     }
-
-    private boolean evaluateCondition(QueryConditionDto cond, UUID userId) {
+    private boolean evaluateCondition(UUID userId, DynamicRuleDto.QueryConditionDto cond) {
         return switch (cond.getQuery()) {
             case "USER_OF" ->
                     userKnowledgeRepository.isUserOf(userId, cond.getArguments().get(0));
@@ -36,18 +38,18 @@ public class DynamicRuleEvaluator {
                 var args = cond.getArguments();
                 yield userKnowledgeRepository.compareTransactionSum(
                         userId,
-                        args.get(0), // productType
-                        args.get(1), // transactionType
-                        args.get(2), // operator
-                        Integer.parseInt(args.get(3)) // constant
+                        args.get(0),
+                        args.get(1),
+                        args.get(2),
+                        Integer.parseInt(args.get(3))
                 );
             }
             case "TRANSACTION_SUM_COMPARE_DEPOSIT_WITHDRAW" -> {
                 var args = cond.getArguments();
                 yield userKnowledgeRepository.compareDepositWithdraw(
                         userId,
-                        args.get(0), // productType
-                        args.get(1)  // operator
+                        args.get(0),
+                        args.get(1)
                 );
             }
             default -> throw new IllegalArgumentException("неизвестный запрос: " + cond.getQuery());

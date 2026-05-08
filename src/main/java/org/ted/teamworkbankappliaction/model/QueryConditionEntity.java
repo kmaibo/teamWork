@@ -8,13 +8,14 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "query_conditions")
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class QueryConditionEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)  // Исправлено
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(name = "query_type", nullable = false)
@@ -29,5 +30,7 @@ public class QueryConditionEntity {
     private List<String> arguments;
 
     @Column(name = "negate", nullable = false)
-    private Boolean negate;
+    private boolean negate;
+
+
 }

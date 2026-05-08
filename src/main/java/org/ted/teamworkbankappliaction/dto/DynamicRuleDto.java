@@ -1,3 +1,4 @@
+
 package org.ted.teamworkbankappliaction.dto;
 
 import lombok.*;
@@ -13,5 +14,16 @@ public class DynamicRuleDto {
     private UUID productId;
     private String productText;
     private List<QueryConditionDto> rule;
-}
 
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class QueryConditionDto {
+
+        private String query;
+        private List<String> arguments;
+        private boolean negate;
+
+    }
+}
