@@ -1,15 +1,15 @@
-package org.ted.teamworkbankappliaction.controller;
+package org.ted.teamworkbankapplication.controller;
 
 import org.springframework.web.bind.annotation.*;
-import org.ted.teamworkbankappliaction.model.BankAccount;
-import org.ted.teamworkbankappliaction.repository.BankAccountRepository;
-import org.ted.teamworkbankappliaction.service.AccountService;
+import org.ted.teamworkbankapplication.model.BankAccount;
+import org.ted.teamworkbankapplication.repository.primary.BankAccountRepository;
+import org.ted.teamworkbankapplication.service.AccountService;
 
 
 import java.math.BigDecimal;
 
 @RestController
-@RequestMapping("/bank_account")
+@RequestMapping("/bank/account")
 public class AccountController {
 
     private BankAccountRepository accountRepository;

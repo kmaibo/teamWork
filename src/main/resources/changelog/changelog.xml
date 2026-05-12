@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+<changeSet id="create-recommendation-rule" author="Кирик">
+
+    <createTable tableName="recommendation_rule">
+        <column name="id" type="bigint" autoIncrement="true">
+            <constraints primaryKey="true" nullable="false"/>
+        </column>
+
+        <column name="product_name" type="VARCHAR(255)">
+            <constraints nullable="false"/>
+        </column>
+
+        <column name="product_id" type="UUID">
+            <constraints nullable="false"/>
+        </column>
+
+        <column name="product_text" type="TEXT"/>
+
+    </createTable>
+
+    <createIndex tableName="recommendation_rule" indexName="idx_rule_product_id">
+        <column name="product_id"/>
+
+    </createIndex>
+</changeSet>
+
+    <changeSet id="002-create-rule-query" author="Кирик">
+
+        <createTable tableName="rule_query">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="rule_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="query_type" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="negate" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="rule_query"
+                baseColumnNames="rule_id"
+                referencedTableName="recommendation_rule"
+                referencedColumnNames="id"
+                constraintName="fk_query_rule"
+                onDelete="CASCADE"/>
+
+        <createIndex tableName="rule_query" indexName="idx_query_rule_id">
+            <column name="rule_id"/>
+        </createIndex>
+
+    </changeSet>
+
+    <changeSet id="003-create-query-arguments" author="Кирик">
+
+        <createTable tableName="query_arguments">
+            <column name="query_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="argument" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="position" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey
+                tableName="query_arguments"
+                columnNames="query_id, position"
+                constraintName="pk_query_arguments"/>
+
+        <addForeignKeyConstraint
+                baseTableName="query_arguments"
+                baseColumnNames="query_id"
+                referencedTableName="rule_query"
+                referencedColumnNames="id"
+                constraintName="fk_arguments_query"
+                onDelete="CASCADE"/>
+
+        <createIndex tableName="query_arguments" indexName="idx_arguments_query_id">
+            <column name="query_id"/>
+        </createIndex>
+
+    </changeSet>
+
+</databaseChangeLog>

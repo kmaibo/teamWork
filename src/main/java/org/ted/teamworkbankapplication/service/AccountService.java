@@ -1,14 +1,13 @@
-package org.ted.teamworkbankappliaction.service;
+package org.ted.teamworkbankapplication.service;
 
 import jakarta.transaction.Transactional;
-import org.hibernate.validator.internal.constraintvalidators.bv.money.CurrencyValidatorForMonetaryAmount;
 import org.springframework.stereotype.Service;
-import org.ted.teamworkbankappliaction.enums.TransactionType;
-import org.ted.teamworkbankappliaction.model.BankAccount;
-import org.ted.teamworkbankappliaction.model.Transaction;
-import org.ted.teamworkbankappliaction.repository.BankAccountRepository;
-import org.ted.teamworkbankappliaction.repository.TransactionRepository;
-import org.ted.teamworkbankappliaction.repository.UserRepository;
+import org.ted.teamworkbankapplication.enums.TransactionType;
+import org.ted.teamworkbankapplication.model.BankAccount;
+import org.ted.teamworkbankapplication.model.Transaction;
+import org.ted.teamworkbankapplication.repository.primary.BankAccountRepository;
+import org.ted.teamworkbankapplication.repository.primary.TransactionRepository;
+import org.ted.teamworkbankapplication.repository.primary.UserRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -45,6 +44,9 @@ public class AccountService {
     public BankAccount withdraw(BankAccount bankAccount, BigDecimal amount) {
         Transaction transaction = new Transaction();
         BankAccount edit = accountRepository.findById(bankAccount.getId()).orElseThrow();
+        if (amount.compareTo(edit.getBalance().subtract(amount)) < 0) {
+            throw new IllegalArgumentException("Insufficient funds");
+        }
         edit.setBalance(edit.getBalance().subtract(amount));
 
         transaction.setAmount(transaction.getAmount().subtract(amount));
