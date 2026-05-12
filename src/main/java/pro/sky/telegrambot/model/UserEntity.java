@@ -1,6 +1,8 @@
 package pro.sky.telegrambot.model;
 
-import javax.persistence.*;
+
+import jakarta.persistence.*;
+
 import java.util.Set;
 @Entity
 @Table(name = "users")
@@ -23,5 +25,6 @@ public class UserEntity {
     public String getFirstName() { return firstName; }
     public String getLastName() { return lastName; }
     public Set<ProductEntity> getRecommendations() { return recommendations; }
+
 }
 

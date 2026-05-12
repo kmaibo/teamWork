@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import pro.sky.telegrambot.TelegramBotApplication;
 
 @Configuration
-public class RecommendationRulesBot extends TelegramBotApplication {
+public class RecommendationRulesBot {
 
     @Value("${telegram.bot.token}")
     private String token;
