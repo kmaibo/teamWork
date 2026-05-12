@@ -1,4 +1,3 @@
-
 package pro.sky.telegrambot.model;
 
 import javax.persistence.Entity;

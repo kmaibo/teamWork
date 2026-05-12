@@ -5,7 +5,6 @@ import pro.sky.telegrambot.model.UserEntity;
 import pro.sky.telegrambot.model.Users;
 
 import java.util.List;
-
 public interface UserRepository extends JpaRepository<Users, Long> {
     Users findByChatId(long chatId);
 

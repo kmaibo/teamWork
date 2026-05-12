@@ -15,7 +15,6 @@ import pro.sky.telegrambot.model.UserEntity;
 import pro.sky.telegrambot.repository.BotStateRepository;
 import javax.annotation.PostConstruct;
 import java.util.List;
-
 @Service
 public class TelegramBotUpdatesListener <Users> implements UpdatesListener {
 

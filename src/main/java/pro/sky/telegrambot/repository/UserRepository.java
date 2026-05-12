@@ -1,5 +1,4 @@
 package pro.sky.telegrambot.repository;
-
 import pro.sky.telegrambot.model.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;

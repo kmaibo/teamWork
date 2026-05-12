@@ -2,7 +2,6 @@ package pro.sky.telegrambot.model;
 
 import javax.persistence.*;
 import java.util.Set;
-
 @Entity
 @Table(name = "users")
 public class UserEntity {
