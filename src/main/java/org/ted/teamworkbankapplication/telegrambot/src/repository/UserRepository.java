@@ -1,6 +1,8 @@
 package org.ted.teamworkbankapplication.telegrambot.src.repository;
-import pro.sky.telegrambot.model.UserEntity;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.ted.teamworkbankapplication.telegrambot.src.model.UserEntity;
+
 import java.util.List;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long> {

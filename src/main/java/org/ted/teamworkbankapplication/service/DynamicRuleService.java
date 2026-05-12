@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.ted.teamworkbankapplication.dto.DynamicRuleDto;
 import org.ted.teamworkbankapplication.model.QueryConditionEntity;
 import org.ted.teamworkbankapplication.model.RuleEntity;
-import org.ted.teamworkbankapplication.repository.DynamicRuleRepository;
+import org.ted.teamworkbankapplication.repository.secondary.DynamicRuleRepository;
 
 import java.util.List;
 import java.util.UUID;

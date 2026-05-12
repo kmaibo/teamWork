@@ -2,7 +2,7 @@ package org.ted.teamworkbankapplication.controller;
 
 import org.springframework.web.bind.annotation.*;
 import org.ted.teamworkbankapplication.model.User;
-import org.ted.teamworkbankapplication.repository.UserRepository;
+import org.ted.teamworkbankapplication.repository.primary.UserRepository;
 
 @RestController
 @RequestMapping("/users")

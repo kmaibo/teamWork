@@ -1,4 +1,4 @@
-package org.ted.teamworkbankapplication.repository;
+package org.ted.teamworkbankapplication.repository.secondary;
 
 import java.util.UUID;
 

@@ -9,12 +9,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pro.sky.telegrambot.model.BotState;
-import pro.sky.telegrambot.model.ProductEntity;
-import pro.sky.telegrambot.model.UserEntity;
-import pro.sky.telegrambot.repository.BotStateRepository;
 import jakarta.annotation.PostConstruct;
-import pro.sky.telegrambot.repository.UserRepository;
+import org.ted.teamworkbankapplication.telegrambot.src.model.BotState;
+import org.ted.teamworkbankapplication.telegrambot.src.model.ProductEntity;
+import org.ted.teamworkbankapplication.telegrambot.src.model.UserEntity;
+import org.ted.teamworkbankapplication.telegrambot.src.repository.BotStateRepository;
+import org.ted.teamworkbankapplication.telegrambot.src.repository.UserRepository;
 
 import java.util.List;
 @Service

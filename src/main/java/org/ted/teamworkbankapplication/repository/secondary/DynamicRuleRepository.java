@@ -1,4 +1,4 @@
-package org.ted.teamworkbankapplication.repository;
+package org.ted.teamworkbankapplication.repository.secondary;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.ted.teamworkbankapplication.model.RuleEntity;

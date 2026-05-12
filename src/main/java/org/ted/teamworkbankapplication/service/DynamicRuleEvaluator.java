@@ -3,7 +3,7 @@ package org.ted.teamworkbankapplication.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.ted.teamworkbankapplication.dto.DynamicRuleDto;
-import org.ted.teamworkbankapplication.repository.UserKnowledgeRepository; // Проверьте импорт
+import org.ted.teamworkbankapplication.repository.secondary.UserKnowledgeRepository; // Проверьте импорт
 
 import java.util.UUID;
 

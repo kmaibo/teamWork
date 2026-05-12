@@ -1,4 +1,4 @@
-package org.ted.teamworkbankapplication.repository;
+package org.ted.teamworkbankapplication.repository.secondary;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
