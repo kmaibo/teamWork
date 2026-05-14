@@ -5,9 +5,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.ted.teamworkbankapplication.dto.DynamicRuleDto;
+import org.ted.teamworkbankapplication.dto.RuleStatDto;
 import org.ted.teamworkbankapplication.model.QueryConditionEntity;
 import org.ted.teamworkbankapplication.model.RuleEntity;
+import org.ted.teamworkbankapplication.model.RuleStat;
 import org.ted.teamworkbankapplication.repository.secondary.DynamicRuleRepository;
+import org.ted.teamworkbankapplication.repository.secondary.RuleStatRepository;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,6 +22,7 @@ import java.util.stream.Collectors;
 public class DynamicRuleService {
 
     private final DynamicRuleRepository ruleRepository;
+    private final RuleStatRepository ruleStatRepository;
 
     @Transactional(readOnly = true)
     public List<DynamicRuleDto> getAllRules() {
@@ -66,7 +70,8 @@ public class DynamicRuleService {
     }
 
     @Transactional(readOnly = true)
-    public boolean existsByProductId(UUID productId) { return ruleRepository.existsByProductId(productId);
+    public boolean existsByProductId(UUID productId) {
+        return ruleRepository.existsByProductId(productId);
     }
 
     public DynamicRuleDto createRule(@Valid DynamicRuleDto request) {
@@ -128,5 +133,19 @@ public class DynamicRuleService {
         qDto.setArguments(qEntity.getArguments());
         qDto.setNegate(qEntity.isNegate());
         return qDto;
+    }
+
+    public List<RuleStatDto> getAllRuleStats() {
+        List<RuleStat> stats = ruleStatRepository.findAll();
+        List<RuleStatDto> statDtos = stats.stream()
+                .map(stat -> new RuleStatDto(stat.getRule().getId(), stat.getCount()))
+                .collect(Collectors.toList());
+        List<RuleEntity> allRules = ruleRepository.findAll();
+        for (RuleEntity rule : allRules) {
+            if (statDtos.stream().noneMatch(dto -> dto.getRuleId().equals(rule.getId()))) {
+                statDtos.add(new RuleStatDto(rule.getId(), 0L));
+            }
+        }
+        return statDtos;
     }
 }
