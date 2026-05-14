@@ -2,13 +2,15 @@ package org.ted.teamworkbankapplication.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.util.List;
 import java.util.UUID;
 
 
 @Entity
 @Table(name = "dynamic_rules")
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class RuleEntity {
@@ -29,4 +31,7 @@ public class RuleEntity {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "rule_id")
     private List<QueryConditionEntity> rule;
+
+    @OneToOne(mappedBy = "rule", cascade = CascadeType.ALL, orphanRemoval = true)
+    private RuleStat ruleStat;
 }

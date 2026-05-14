@@ -17,7 +17,7 @@ import org.ted.teamworkbankapplication.telegrambot.src.repository.BotStateReposi
 import org.ted.teamworkbankapplication.telegrambot.src.repository.UserRepository;
 
 import java.util.List;
-@Service
+//@Service
 public class TelegramBotUpdatesListener <Users> implements UpdatesListener {
 
     private final Logger logger = LoggerFactory.getLogger(TelegramBotUpdatesListener.class);

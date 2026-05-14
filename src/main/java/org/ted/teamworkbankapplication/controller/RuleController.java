@@ -5,11 +5,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.ted.teamworkbankapplication.dto.DynamicRuleDto;
+import org.ted.teamworkbankapplication.dto.RuleStatDto;
 import org.ted.teamworkbankapplication.dto.RulesListResponse;
 import org.ted.teamworkbankapplication.service.DynamicRuleService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+
 
 @RestController
 @RequestMapping("/rule")
@@ -34,5 +37,10 @@ public class RuleController {
     public ResponseEntity<Void> deleteRule(@PathVariable UUID productId) {
         ruleService.deleteRule(productId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/stats")
+    public ResponseEntity<Map<String, List<RuleStatDto>>> getRuleStats() {
+        return ResponseEntity.ok(Map.of("stats", ruleService.getAllRuleStats()));
     }
 }
